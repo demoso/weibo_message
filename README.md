@@ -161,5 +161,5 @@ get_headers = {
 源码传送门： [https://github.com/zuojj/weibo_message](https://github.com/zuojj/weibo_message)
 
 ## 参考地址
-[Python3从chrome浏览器读取cookie](http://www.jianshu.com/p/cd2117b931e3)
-[Python 模拟登录新浪微博的两种方法](http://lovenight.github.io/2015/11/23/Python-%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A/)
+* [Python3从chrome浏览器读取cookie](http://www.jianshu.com/p/cd2117b931e3)
+* [Python 模拟登录新浪微博的两种方法](http://lovenight.github.io/2015/11/23/Python-%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A/)
