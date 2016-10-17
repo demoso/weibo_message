@@ -4,11 +4,11 @@ chat with microsoft xiaobing  based on python
 ## 微博模拟登录
 
 1.通过fiddler抓包，找到登录请求地址，并分析相关参数
-```
+```Python
 https://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)
 ```
 2.相关参数如下：
-```
+```Python
 params = {
     "entry": "sso",
     "gateway": "1",
@@ -29,11 +29,11 @@ params = {
 }
 ```
 3.用户名base64编码
-```
+```Python
 username = base64.b64encode(username.encode('utf-8')).decode('utf-8')
 ```
 4.requests请求
-```
+```Python
 session = requests.Session()
 res = session.post(url, data = params)
 ```
