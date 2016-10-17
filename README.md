@@ -10,22 +10,22 @@ https://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)
 2.相关参数如下：
 ```
 params = {
-"entry": "sso",
-"gateway": "1",
-"from": "null",
-"savestate": "30",
-"useticket": "0",
-"pagerefer": "",
-"vsnf": "1",
-"su": username,
-"service": "sso",
-"sp": password,
-"sr": "1440*900",
-"encoding": "UTF-8",
-"cdult": "3",
-"domain": "sina.com.cn",
-"prelt": "0",
-"returntype": "TEXT",
+    "entry": "sso",
+    "gateway": "1",
+    "from": "null",
+    "savestate": "30",
+    "useticket": "0",
+    "pagerefer": "",
+    "vsnf": "1",
+    "su": username,
+    "service": "sso",
+    "sp": password,
+    "sr": "1440*900",
+    "encoding": "UTF-8",
+    "cdult": "3",
+    "domain": "sina.com.cn",
+    "prelt": "0",
+    "returntype": "TEXT",
 }
 ```
 3.用户名base64编码
@@ -49,44 +49,44 @@ import requests
 # @parma password
 # @return cookies
 def login(username, password):
-username = base64.b64encode(username.encode('utf-8')).decode('utf-8')
+    username = base64.b64encode(username.encode('utf-8')).decode('utf-8')
 
-params = {
-"entry": "sso",
-"gateway": "1",
-"from": "null",
-"savestate": "30",
-"useticket": "0",
-"pagerefer": "",
-"vsnf": "1",
-"su": username,
-"service": "sso",
-"sp": password,
-"sr": "1440*900",
-"encoding": "UTF-8",
-"cdult": "3",
-"domain": "sina.com.cn",
-"prelt": "0",
-"returntype": "TEXT",
-}
+    params = {
+        "entry": "sso",
+        "gateway": "1",
+        "from": "null",
+        "savestate": "30",
+        "useticket": "0",
+        "pagerefer": "",
+        "vsnf": "1",
+        "su": username,
+        "service": "sso",
+        "sp": password,
+        "sr": "1440*900",
+        "encoding": "UTF-8",
+        "cdult": "3",
+        "domain": "sina.com.cn",
+        "prelt": "0",
+        "returntype": "TEXT",
+    }
 
-url = r'https://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)'
+    url = r'https://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)'
 
-session = requests.Session()
-res = session.post(url, data = params)
-jsonStr = res.content.decode('utf-8')
-info = json.loads(jsonStr)
+    session = requests.Session()
+    res = session.post(url, data = params)
+    jsonStr = res.content.decode('utf-8')
+    info = json.loads(jsonStr)
 
-if info["retcode"] == "0":
-print('login success')
-cookies = session.cookies.get_dict()
-cookies = [key + "=" + value for key, value in cookies.items()]
-cookies = "; ".join(cookies)
-print(cookies)
-return cookies
-else:
-print("login failed，the reason： %s" % info["reason"])
-return ""
+    if info["retcode"] == "0":
+        print('login success')
+        cookies = session.cookies.get_dict()
+        cookies = [key + "=" + value for key, value in cookies.items()]
+        cookies = "; ".join(cookies)
+        print(cookies)
+        return cookies
+    else:
+        print("login failed，the reason： %s" % info["reason"])
+        return ""
 
 # excute
 login('cuew1987@163.com', 'xxxxx')
@@ -102,22 +102,22 @@ login('cuew1987@163.com', 'xxxxx')
 # @return cookie
 
 def getPrivateMsgCookie(host = '.weibo.com'):
-# windows7 Chrome cookies file path
-cookiepath = os.environ['LOCALAPPDATA'] + r"\Google\Chrome\User Data\Default\Cookies"
+    # windows7 Chrome cookies file path
+    cookiepath = os.environ['LOCALAPPDATA'] + r"\Google\Chrome\User Data\Default\Cookies"
 
-sql = "select host_key,name,encrypted_value from cookies where host_key='%s'" % host
-with sqlite3.connect(cookiepath) as conn:
-cu = conn.cursor()
-privateMsgCookie = {
-name: CryptUnprotectData(encrypted_value)[1].decode() for host_key,name,encrypted_value in cu.execute(sql).fetchall()
-}
+    sql = "select host_key,name,encrypted_value from cookies where host_key='%s'" % host
+    with sqlite3.connect(cookiepath) as conn:
+        cu = conn.cursor()
+        privateMsgCookie = {
+            name: CryptUnprotectData(encrypted_value)[1].decode() for host_key,name,encrypted_value in cu.execute(sql).fetchall()
+            }
 
-private = "";
-for key in privateMsgCookie:
-private += key + "=" + privateMsgCookie[key] + ";"
+        private = "";
+        for key in privateMsgCookie:
+            private += key + "=" + privateMsgCookie[key] + ";"
 
-print(private + "\n")
-return private
+    print(private + "\n")
+    return private
 
 cookie = getPrivateMsgCookie()
 ```
@@ -126,35 +126,36 @@ cookie = getPrivateMsgCookie()
 url = "http://weibo.com/aj/message/add?"
 data = "ajwvr=6&__rnd="+ str(int(time.time())) +"&location=msgdialog&module=msgissue&style_id=1&text=" + msg + "&uid=5175429989&tovfids=&fids=&el=[object HTMLDivElement]&_t=0"
 headers = {
-"Accept": "*/*",
-"Accept-Encoding": "gzip, deflate",
-"Accept-Language": "zh-CN,zh;q=0.8,ko;q=0.6,en;q=0.4,zh-TW;q=0.2,fr;q=0.2",
-"Connection": "keep-alive",
-"Content-Length": str(len(msg)),
-"Content-Type": "application/x-www-form-urlencoded",
-"Cookie": cookie,
-"Host": "weibo.com",
-"Origin": "http://weibo.com",
-"Referer": "http://weibo.com/message/history?uid=5175429989&name=%E5%B0%8F%E5%86%B0",
-"User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
-"X-Requested-With": "XMLHttpRequest"
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-CN,zh;q=0.8,ko;q=0.6,en;q=0.4,zh-TW;q=0.2,fr;q=0.2",
+    "Connection": "keep-alive",
+    "Content-Length": str(len(msg)),
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Cookie": cookie,
+    "Host": "weibo.com",
+    "Origin": "http://weibo.com",
+    "Referer": "http://weibo.com/message/history?uid=5175429989&name=%E5%B0%8F%E5%86%B0",
+    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+    "X-Requested-With": "XMLHttpRequest"
 }
+
 ```
 5.获取小冰最新回答，采用移动端请求信息url,移动端发挥json格式，比较容易解析
 ```Python
 get_url = "http://m.weibo.cn/msg/messages?uid=5175429989&page=1"
 get_headers = {
-"Host": "m.weibo.cn",
-"Connection": "keep-alive",
-"Cache-Control": "max-age=0",
-"Upgrade-Insecure-Requests": str(1),
-"X-Requested-With": "XMLHttpRequest",
-"Referer": "http://m.weibo.cn/msg/chat?uid=5175429989",
-"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1",
-"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-"Accept-Encoding": "gzip, deflate, sdch",
-"Accept-Language": "zh-CN,zh;q=0.8,ko;q=0.6,en;q=0.4,zh-TW;q=0.2,fr;q=0.2",
-"Cookie": cookie
+    "Host": "m.weibo.cn",
+    "Connection": "keep-alive",
+    "Cache-Control": "max-age=0",
+    "Upgrade-Insecure-Requests": str(1),
+    "X-Requested-With": "XMLHttpRequest",
+    "Referer": "http://m.weibo.cn/msg/chat?uid=5175429989",
+    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, sdch",
+    "Accept-Language": "zh-CN,zh;q=0.8,ko;q=0.6,en;q=0.4,zh-TW;q=0.2,fr;q=0.2",
+    "Cookie": cookie
 }
 ```
 ## 源码地址
